@@ -1,17 +1,108 @@
 ---
-title: Test MDX
-tags: [test, mdx]
-summary: Simple MDX test file
+title: "Przegląd Tematów"
+summary: "Szybki przegląd tematów — wybierz sekcję poniżej."
+order: 0
 ---
 
-# Polish Accent
+import { Link } from 'react-router-dom'
+import { FolderLock, Fingerprint, Settings, Map, Globe, Folder } from 'lucide-react'
 
-Przed wyruszeniem w drogę należy **zebrać drużynę**
+export function Section({ icon, title, children }) {
+    return (
+        <section className="not-prose space-y-4">
+            <div className="kb-chip">
+                <div className="kb-chip__icon">{icon}</div>
+                <h2 className="m-0 text-xl font-bold">{title}</h2>
+            </div>
+            {children}
+        </section>
+    )
+}
 
-## Some list
-- item 1
-- item 2
-- Rare item: Your Dad Sober
+export function CardGrid({ children }) {
+    return <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 items-stretch">{children}</div>
+}
 
-### Rick Roll
-See: [Rick Roll](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+export function Card({ to, title, desc, icon }) {
+    return (
+        <Link to={to} className="group block h-full">  
+            <div className="kb-card h-full flex gap-3 p-4 shadow-sm">
+                <span className="kb-card__icon shrink-0 mt-0.5">
+                    {icon}
+                </span>
+                <span className="min-w-0 flex flex-col">
+                    <span className="font-semibold leading-snug group-hover:underline">
+                        {title}
+                    </span>
+                    <span className="mt-1 text-sm text-[--kb-mute]">
+                        {desc}
+                    </span>
+                </span>
+            </div>
+        </Link>
+    )
+}
+
+
+
+<div className="not-prose mb-8">
+  <div className="kb-card kb-hero">
+    <div className="kb-card__icon">
+      <Folder size={18} className="opacity-90" />
+    </div>
+    <div>
+      <h2 className="m-0 text-xl font-bold">Wybierz kategorię</h2>
+      <p className="m-0 text-[--kb-mute] text-sm">
+        Dostępne artykuły zgrupowane tematycznie. Kliknij kartę, aby przejść.
+      </p>
+    </div>
+  </div>
+</div>
+
+<Section
+icon={<FolderLock size={18} className="opacity-90" />}
+title="Ogólne"
+>
+  <CardGrid>
+    <Card
+      to="/ftp-sftp"
+      title="FTP — SFTP"
+      desc="Bezpieczne połączenie SFTP w HostGier.PL (WinSCP/FileZilla), pierwsze logowanie i najczęstsze problemy."
+      icon={<FolderLock size={18} className="opacity-90" />}
+    />
+    <Card
+      to="/server-id"
+      title="Gdzie znajduje się ID serwera?"
+      desc="Szybko znajdź ID usługi (i Container ID dla VPS) w panelu oraz w adresie URL."
+      icon={<Fingerprint size={18} className="opacity-90" />}
+    />
+  </CardGrid>
+</Section>
+
+<hr className="my-8 border-[--kb-border]" />
+
+<Section
+icon={<Settings size={18} className="opacity-90" />}
+title="Serwery Minecraft"
+>
+  <CardGrid>
+    <Card
+      to="/minecraft/poradnik-server-properties"
+      title="Konfiguracja server.properties — kompletny poradnik"
+      desc="Pełna dokumentacja kluczy 1.21.x: rozgrywka, sieć, wydajność, zabezpieczenia i typowe profile."
+      icon={<Settings size={18} className="opacity-90" />}
+    />
+    <Card
+      to="/minecraft/instalacja-dynmap"
+      title="Instalacja dynmap"
+      desc="Instalacja i konfiguracja Dynmap: port dla serwera WWW, restart i pierwsze renderowanie."
+      icon={<Map size={18} className="opacity-90" />}
+    />
+    <Card
+      to="/minecraft/jak-podpiac-domene-pod-serwer-minecraft"
+      title="Jak podpiąć domenę pod serwer Minecraft"
+      desc="Rekord SRV, wskazanie hosta i portu, propagacja DNS (np. Cloudflare/OVH)."
+      icon={<Globe size={18} className="opacity-90" />}
+    />
+  </CardGrid>
+</Section>
