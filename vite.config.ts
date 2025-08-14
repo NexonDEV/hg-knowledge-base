@@ -11,6 +11,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 
+const mdxPassThrough = [
+  'mdxjsEsm','mdxFlowExpression','mdxTextExpression','mdxJsxFlowElement','mdxJsxTextElement'
+]
+
 export default defineConfig({
   plugins: [
     mdx({
@@ -20,7 +24,7 @@ export default defineConfig({
         remarkMath,
       ],
       rehypePlugins: [
-        rehypeRaw,
+        [rehypeRaw, { passThrough: mdxPassThrough }],
         rehypeSlug,
         [rehypeAutolinkHeadings, { behavior: 'append' }],
         rehypeKatex,

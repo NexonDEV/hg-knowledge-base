@@ -1,5 +1,5 @@
 [
   { "name": "Ogólne", "icon": "Folder", "order": 0 },
-  { "name": "Grupa X", "icon": "Server", "order": 10 },
+  { "name": "Serwery Minecraft", "icon": "Server", "order": 10 },
   { "name": "Grupa D", "icon": "Database", "order": 20 }
 ]

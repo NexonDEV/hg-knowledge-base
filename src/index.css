@@ -50,8 +50,11 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
   width: 320px;
   border-right: 1px solid var(--kb-border);
   background: var(--kb-panel);
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   font-size: 15px;
+  position: sticky;
+  overflow-y: auto;
 }
 .sidebar .logo {
   padding: 14px 14px 12px;
@@ -73,9 +76,8 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
 }
 .sidebar .nav {
   padding: 10px 10px 12px;
-  overflow-y: auto; flex: 1;
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(in oklab, white 22%, transparent) transparent;
+  flex: 1;
+  overflow: visible;
 }
 .sidebar .nav::-webkit-scrollbar { width: 8px }
 .sidebar .nav::-webkit-scrollbar-thumb { background: color-mix(in oklab, white 22%, transparent); border-radius: 8px }
@@ -218,3 +220,17 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
 }
 .footer-text a:hover { border-bottom-color: var(--kb-ink); }
 .footer-heart { color: #ef4444; }
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.main-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: var(--kb-footer-h);
+}
