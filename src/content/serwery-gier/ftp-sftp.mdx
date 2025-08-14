@@ -1,0 +1,84 @@
+---
+title: "FTP — SFTP"
+summary: "Czym jest SFTP, jak bezpiecznie połączyć się z serwerem HostGier.PL oraz z jakich aplikacji warto korzystać. Instrukcja krok po kroku."
+group: "Ogólne"
+tags: ["ftp", "sftp", "winscp", "filezilla", "termius", "solar-putty", "hostgier"]
+order: 10
+---
+
+import AiGeneratedBadge from '../../components/AiGeneratedBadge.tsx'
+
+# FTP — SFTP
+
+W tym poradniku dowiesz się, czym jest **SFTP**, jak się do niego podłączyć oraz z jakich aplikacji warto skorzystać.
+
+## Wstęp
+
+**FTP** (File Transfer Protocol) to klasyczny protokół przesyłania plików między klientem a serwerem.  
+**SFTP** (SSH File Transfer Protocol) działa w tunelu **SSH (port 22)**, szyfruje transmisję i nie wymaga osobnego serwera FTP.  
+Z tych powodów **zalecamy SFTP** — jest bezpieczniejszy niż FTP (port 21).
+
+## Różnice: FTP vs SFTP
+
+- **FTP** – brak szyfrowania, dane (w tym hasła) mogą zostać podejrzane w sieci.
+- **SFTP** – połączenie szyfrowane przez SSH, jedna sesja i jeden port, znacznie wyższy poziom bezpieczeństwa.
+
+## Jak połączyć się z SFTP? (HostGier.PL)
+
+> W hostingu gier HostGier.PL dostęp do plików realizujemy przez **SFTP**.
+
+### Wymagane dane
+
+- **Adres SFTP** (host)
+- **Login** (e-mail/login do panelu klienta `cp.hostgier.pl`)
+- **Hasło** (do panelu)
+
+### Krok 1 — Odczytaj dane SFTP w panelu
+
+Zaloguj się do **Panelu Klienta** → przejdź do swojego serwera → **Połączenie SFTP**.
+
+![Panel HostGier — Połączenie SFTP](/docs/ftp-sftp/1.png)
+
+W zakładce znajdziesz **adres hosta**, **port**, **login** i przycisk do szybkiego otwarcia sesji.
+
+![Dane logowania SFTP w panelu HostGier](/docs/ftp-sftp/2.png)
+
+Możesz skorzystać z akcji **„Otwórz połączenie SFTP”** (wymaga zainstalowanego klienta, np. WinSCP).
+
+![Przycisk „Otwórz połączenie SFTP”](/docs/ftp-sftp/3.png)
+
+Przeglądarka zapyta o otwarcie zewnętrznej aplikacji — **potwierdź**.
+
+![Potwierdzenie otwarcia WinSCP z przeglądarki](/docs/ftp-sftp/4.png)
+
+Przy pierwszym połączeniu klient poprosi o **zaufanie kluczowi serwera** — zaakceptuj (jeśli łączysz się na właściwy host).
+
+![WinSCP — zaufanie kluczowi serwera (Tak)](/docs/ftp-sftp/5.png)
+
+Teraz wpisz **login** i **hasło** z zakładki „Połączenie SFTP” i połącz się.  
+Po udanym logowaniu zobaczysz pliki serwera po prawej, a pliki lokalne po lewej.
+
+![Połączony klient WinSCP — widok plików serwera](/docs/ftp-sftp/6.png)
+
+## Polecane aplikacje SFTP
+
+- **WinSCP** — Windows, GUI, obsługa SFTP/FTP/WebDAV/S3.
+- **FileZilla** — Windows/macOS/Linux, popularny klient (pamiętaj o SFTP).
+- **Termius** — cross-platform (także mobile), SSH + SFTP.
+- **Solar-PuTTY** — narzędzia SolarWinds (SSH/SFTP, sesje).
+
+## Najczęstsze problemy
+
+- **Brak połączenia** – sprawdź host, port `22`, login/hasło z panelu i ewentualne firewalle.
+- **Nie widzę plików** – upewnij się, że łączysz się do właściwego serwera/instancji.
+- **Błąd klucza** – usuń stary wpis hosta z pamięci klienta i połącz się ponownie, akceptując nowy klucz.
+
+---
+
+> Źródło: „FTP - SFTP” — HostGier.PL Baza wiedzy (oryginalny artykuł).
+>
+> Artykuł przeniesiony ze starej bazy wiedzy i przeredagowany przez naszego Agenta AI
+
+---
+
+<AiGeneratedBadge />

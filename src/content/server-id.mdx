@@ -1,0 +1,61 @@
+---
+title: "Gdzie znajduje się ID serwera?"
+summary: "Jak znaleźć ID serwera (oraz Container ID na VPS) w panelu HostGier.PL — krok po kroku, ze zrzutami ekranu."
+group: "Ogólne"
+tags: ["panel", "id serwera", "vps", "container id", "hostgier", "identyfikator"]
+order: 20
+---
+
+import AiGeneratedBadge from '../components/AiGeneratedBadge.tsx'
+
+# Gdzie znajduje się ID serwera?
+
+> Kiedy kontaktujesz się z pomocą techniczną, często prosimy o **ID serwera**. To unikalny identyfikator Twojej usługi — nie zmienia się nawet, jeśli zmienisz jej nazwę w panelu.
+
+---
+
+## Serwery gier
+
+1. **Zaloguj się** do Panelu Klienta i kliknij **zieloną ikonkę oka** przy wybranym serwerze — przejdziesz do panelu serwera.
+   ![Przejście do panelu serwera (zielona ikona oka)](/docs/server-id/1.png)
+
+2. **ID serwera** znajdziesz w **dwóch miejscach** wewnątrz panelu serwera.
+   ![ID serwera — dwa miejsca w panelu](/docs/server-id/2.png)
+
+3. Ten sam identyfikator zobaczysz także w **adresie URL** panelu — to część ścieżki **po `/server/`**.
+   ![ID w adresie URL (po /server/)](/docs/server-id/4.png)
+
+---
+
+## Serwery VPS
+
+> Każda usługa ma podstawowy **ID serwera**. Dla VPS istnieje dodatkowo **Container ID** — czteroznakowy kod rozpoczynający się od `CT`, charakterystyczny **wyłącznie** dla VPS.
+
+1. Zaloguj się do Panelu Klienta i ponownie kliknij **zieloną ikonkę oka** — tym razem przy Twoim **VPS**.
+   ![Przejście do panelu VPS (zielona ikona oka)](/docs/server-id/3.png)
+
+2. W panelu VPS **ID** znajdziesz w **trzech miejscach**.
+   ![ID w panelu VPS — trzy miejsca](/docs/server-id/5.png)
+
+3. ID VPS jest również widoczny w **adresie URL** panelu (po `/server/`), identyczny jak w samym panelu.
+   ![ID VPS w adresie URL (po /server/)](/docs/server-id/6.png)
+
+4. **Container ID** pojawia się także jako **bazowy hostname** (nazwa serwera) po zakupie VPS.
+   ![Container ID jako hostname po zakupie VPS](/docs/server-id/7.png)
+
+---
+
+## Podsumowanie
+
+- **ID serwera**: stały identyfikator Twojej usługi, widoczny w panelu i w adresie URL po `/server/`.
+- **Container ID (VPS)**: dodatkowy identyfikator w formacie `CTxx`, spotykany tylko na VPS i używany m.in. jako bazowy hostname.
+
+---
+
+> Źródło: „Gdzie znajduje się ID serwera?”— HostGier.PL Baza wiedzy (oryginalny artykuł).
+>
+> Artykuł przeniesiony ze starej bazy wiedzy i przeredagowany przez naszego Agenta AI
+
+---
+
+<AiGeneratedBadge />

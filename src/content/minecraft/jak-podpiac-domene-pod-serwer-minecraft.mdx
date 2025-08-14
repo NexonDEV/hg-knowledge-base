@@ -1,0 +1,65 @@
+---
+title: "Jak podpiąć domenę pod serwer Minecraft"
+summary: "Krok po kroku: rekord SRV dla subdomeny lub domeny, wymagane dane i propagacja DNS."
+group: "Serwery Minecraft"
+tags: ["minecraft", "domena", "dns", "srv", "cloudflare", "hostgier"]
+order: 50
+---
+
+import AiGeneratedBadge from '../../components/AiGeneratedBadge.tsx'
+
+# Jak podpiąć domenę pod serwer Minecraft
+
+Ten poradnik pokazuje, jak podłączyć **własną domenę** do Twojego serwera Minecraft, tak aby gracze łączyli się przyjaznym adresem (np. `mojserwer.hostgier.pl`) zamiast `IP:PORT`.
+
+## Wymagania
+
+- Domeny z zewnętrznego rejestratora (np. Cloudflare, OVH, itp.)
+- **Nazwa hosta** Twojego serwera (np. `node2-pl.hostgier.pl`)
+- **Port serwera** (np. `26052`)
+- ~5 minut czasu
+
+## Krok 1 — Pozyskaj nazwę hosta i port
+
+W panelu znajdź **nazwę hosta** oraz **port** przypisany do Twojej instancji serwera.
+
+- Nazwa hosta: `node2-pl.hostgier.pl`
+- Port: `26052`
+
+![Gdzie znaleźć nazwę hosta i port](/docs/jak-podpiac-domene-pod-serwer-minecraft/1.png)
+
+## Krok 2 — Zaloguj się do operatora domeny
+
+Wejdź do panelu DNS swojego operatora (w przykładzie niżej używamy **Cloudflare**). Interfejs może się różnić u innych dostawców, ale sama idea pozostaje taka sama: dodasz **rekord SRV** wskazujący na nazwę hosta i port Twojego serwera.
+
+## Krok 3 — Utwórz rekord **SRV**
+
+Chcemy, aby serwer był dostępny pod subdomeną **`mojserwer.hostgier.pl`**. Dodaj rekord **SRV** z poniższymi wartościami (przykład):
+
+```txt
+Type:      SRV
+Name:      mojserwer          # subdomena (dla root domeny użyj @ lub pozostaw pusty wg operatora)
+Service:   _minecraft
+Proto:     _tcp
+TTL:       Auto
+Priority:  0
+Weight:    5
+Port:      26052              # PORT Twojego serwera
+Target:    node2-pl.hostgier.pl   # NAZWA HOSTA Twojego serwera
+```
+
+> **Uwaga:** W przykładzie jest subdomena `mojserwer`. Jeśli chcesz użyć **samej domeny** (np. `hostgier.pl`), ustaw pole **Name** na `@` (lub zgodnie z zasadami operatora, może być puste).
+
+## Krok 4 — Poczekaj na propagację DNS
+
+Po zapisaniu zmian odczekaj chwilę — zazwyczaj rekord zaczyna działać w **kilka–kilkanaście minut**, ale pełna propagacja może potrwać **do godziny**.
+
+---
+
+> Źródło: „Jak podpiąć domenę pod serwer minecraft?” — HostGier.PL Baza wiedzy (oryginalny artykuł).
+>
+> Artykuł przeniesiony ze starej bazy wiedzy i przeredagowany przez naszego Agenta AI
+
+---
+
+<AiGeneratedBadge />

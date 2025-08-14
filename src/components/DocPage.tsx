@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { byRoute } from '../lib/content'
 import { MDXProvider } from '@mdx-js/react'
+import SEO from '../seo/SEO'
 
 const mdxComponents = {
     h2: (props: any) => <h2 {...props} className="mt-10 mb-3 scroll-mt-24 text-2xl font-semibold" />,
@@ -21,18 +22,26 @@ export default function DocPage() {
     const Content = useMemo(() => (rec?.mod?.default ?? (() => <div>Nie znaleziono dokumentu.</div>)), [rec])
 
     return (
-        <div className="px-6 py-6">
-            <div className="mb-6 doc-header pb-5">
-                <h1 className="text-3xl font-bold tracking-tight doc-title">{rec?.meta.title}</h1>
-                {rec?.meta.summary ? <p className="mt-2 text-sm text-[--kb-mute] anim-fade">{rec.meta.summary}</p> : null}
-                <div className="doc-underline mt-3"></div>
-            </div>
+        <>
+            <SEO doc={{
+                route: rec.meta.route,
+                title: rec.meta.title,
+                summary: rec.meta.summary,
+                tags: rec.meta.tags,
+            }} />
+            <div className="px-6 py-6">
+                <div className="mb-6 doc-header pb-5">
+                    <h1 className="text-3xl font-bold tracking-tight doc-title">{rec?.meta.title}</h1>
+                    {rec?.meta.summary ? <p className="mt-2 text-sm text-[--kb-mute] anim-fade">{rec.meta.summary}</p> : null}
+                    <div className="doc-underline mt-3"></div>
+                </div>
 
-            <article className="prose kb-article">
-                <MDXProvider components={mdxComponents}>
-                    <Content />
-                </MDXProvider>
-            </article>
-        </div>
+                <article className="prose kb-article">
+                    <MDXProvider components={mdxComponents}>
+                        <Content />
+                    </MDXProvider>
+                </article>
+            </div>
+        </>
     )
 }

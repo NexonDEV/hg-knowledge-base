@@ -1,0 +1,206 @@
+---
+title: Konfiguracja server.properties — kompletny poradnik
+summary: "Pełny opis wszystkich ustawień pliku `server.properties` dla najnowszych wersji Minecraft: Java Edition (1.21.x) z praktycznymi wskazówkami i bezpiecznymi domyślnymi."
+group: Serwery Minecraft
+tags: [minecraft, java, server, konfiguracja, server.properties, 1.21]
+order: 10
+---
+
+import AiGeneratedBadge from '../../components/AiGeneratedBadge.tsx'
+
+> Ten poradnik dotyczy **Minecraft: Java Edition 1.21.x** (stan na 14.08.2025). Część opcji istnieje od wcześniejszych wersji, a kilka doszło niedawno (np. **transfer packets**, **initial-enabled-packs**, **region-file-compression**). Po zmianach **zatrzymaj i uruchom serwer ponownie** (lub `reload`), aby wartości się zastosowały.
+
+## Szybki przegląd
+
+- Plik `server.properties` generuje się przy pierwszym starcie i zawiera **klucz=wartość** w każdej linii.
+- Domyślne wartości są nadpisywane przy aktualizacji wersji, jeśli brakuje nowych kluczy.
+- Edytuj zwykłym edytorem tekstu (UTF-8).
+
+---
+
+## Najważniejsze ustawienia (polecane do sprawdzenia najpierw)
+
+- `online-mode=true` — **Weryfikacja kont Mojang/Microsoft**. Zostaw **true** (bez tego narażasz serwer na podszycia).
+- `enforce-secure-profile=true` — tylko gracze z **podpisanym kluczem czatu**; ustawienie to wpływa na raportowalność czatu i kompatybilność modyfikacji. Można wyłączyć (`false`), jeśli świadomie chcesz dopuścić niepodpisany czat.
+- `enable-command-block=false` — włącz, jeśli mapa/administracja korzysta z **command blocków**.
+- `pvp=true` — walka pomiędzy graczami.
+- `difficulty=peaceful|easy|normal|hard` — poziom trudności świata.
+- `view-distance` / `simulation-distance` — odległość renderowania i symulacji (wydajność!).
+- `spawn-protection` — promień ochrony spawnu (0 = brak).
+- `initial-enabled-packs` — **eksperymentalne/feature packs** aktywowane **PRZY TWORZENIU NOWEGO ŚWIATA** (np. `update_1_21`). 
+- `region-file-compression=deflate|lz4|none` — **algorytm kompresji regionów** (wydajność dysku/IO). 
+- `accepts-transfers=false` — akceptuj **transfery między serwerami** (nowe „transfer packets”); ustaw `true`, jeśli używasz tego mechanizmu. 
+
+---
+
+## Kategorie i pełny opis opcji
+
+### 1) Rozgrywka i świat
+- `gamemode=survival|creative|adventure|spectator` — domyślny tryb gry.
+- `force-gamemode=true|false` — wymusza tryb przy każdym logowaniu.
+- `difficulty=peaceful|easy|normal|hard` — poziom trudności.
+- `hardcore=true|false` — tryb hardcore (śmierć ⇒ spectator).
+- `allow-flight=true|false` — pozwala latać (np. mody/serwery kreatywne).
+- `pvp=true|false` — włącz/wyłącz PVP.
+- `spawn-protection=<int>` — ochrona obszaru spawnu; `0` = wyłączona. 
+
+**Generowanie świata**
+- `level-name=<nazwa>` — nazwa folderu świata.
+- `level-seed=<ziarno>` — seed świata.
+- `level-type=minecraft\:normal|flat|large_biomes|amplified|single_biome_surface` — preset świata (od 1.19 nazwy z przestrzenią nazw).
+- `generator-settings={}` — JSON dla presetów (np. superflat).
+- `generate-structures=true|false` — generowanie struktur (wioski, fortece…).
+
+**Symulacja i widoczność**
+- `view-distance=<int>` — ile **chunków** do wysyłania klientowi (promień).
+- `simulation-distance=<int>` — zasięg aktywnej symulacji (ticking).
+- `entity-broadcast-range-percentage=<int>` — jak daleko wysyłać obiekty do klienta (wpływ na wydajność). 
+
+**Moby i NPC**
+- `spawn-monsters=true|false`
+- `spawn-animals=true|false`
+- `spawn-npcs=true|false` 
+
+### 2) Uprawnienia i whitelista
+- `enforce-whitelist=true|false` — wymusza whitelistę; tylko gracze z listy mogą dołączyć.
+- `white-list=true|false` — **przełącznik whitelisty** (nowsze serwery i tak honorują `enforce-whitelist`).
+- `op-permission-level=1..4` — domyślne uprawnienia dla OP:
+1 – omija ochronę spawnu; 2 – komendy SP + command block; 3 – większość komend MP; 4 – pełne (m.in. `/stop`).
+- `function-permission-level=1..4` — poziom dla funkcji datapacków. 
+
+### 3) Zasoby i paczki
+- `resource-pack=<URL>` — adres paczki zasobów (max ~250 MiB; zalecane `resource-pack-sha1`).
+- `require-resource-pack=true|false` — wymagaj pobrania (gracz odmówi ⇒ rozłączenie).
+- `resource-pack-sha1=<sha1>` — weryfikacja integralności.
+- `resource-pack-prompt=<json chat component>` — własny komunikat w prompt.
+- `resource-pack-id=<uuid>` — identyfikator paczki (klient pamięta akceptację). 
+
+**Paki funkcji / eksperymentalne**
+- `initial-enabled-packs=vanilla,update_1_21,...` — lista włączonych **przy tworzeniu świata** (np. eksperymenty 1.21).
+- `initial-disabled-packs=` — lista paków **nie** włączanych automatycznie.
+> Działają **tylko przy generowaniu nowego świata**. Dla istniejącego wymagana migracja ręczna (np. `level.dat`) lub ponowne tworzenie. 
+
+### 4) Sieć i status
+- `server-ip=<ip>` / `server-port=25565` — nasłuch serwera.
+- `enable-status=true|false` — odpowiedzi na ping listy (fałsz ⇒ „offline”, ale serwer przyjmuje połączenia).
+- `hide-online-players=true|false` — ukrywa listę graczy w statusie.
+- `network-compression-threshold=-1|0|n` — próg kompresji pakietów.
+- `rate-limit=<int>` — limit pakietów/sek.; `0` wyłącza.
+- `log-ips=true|false` — logowanie IP podczas dołączania.
+- `use-native-transport=true|false` — optymalizacje I/O dla Linuksa (epoll). 
+
+**Transfer między serwerami (nowość)**
+- `accepts-transfers=true|false` — włącz **transfer packets** (umożliwia przenoszenie graczy między serwerami *bez* proxy). Domyślnie `false`. 
+
+### 5) RCON i Query
+- `enable-rcon=true|false`, `rcon.port=25575`, `rcon.password=<hasło>` — **zdalna konsola**.
+- `enable-query=true|false`, `query.port=25565` — UDP Query dla list serwerów. 
+
+### 6) Zabezpieczenia i zgodność
+- `online-mode=true|false` — **weryfikacja kont** (trzymaj `true`, chyba że masz specyficzny powód i alternatywne zabezpieczenia).
+- `enforce-secure-profile=true|false` — restrykcje podpisu czatu (wpływ na mody/kompatybilność).
+- `prevent-proxy-connections=true|false` — blokuje graczy z VPN/proxy (heurystyka ISP/AS). 
+
+### 7) Wydajność i diagnostyka
+- `max-players=<int>` — limit slotów (bez OPów).
+- `max-tick-time=<ms>` — watchdog; `-1` wyłącza.
+- `max-chained-neighbor-updates=<int>` — limit kaskadowych aktualizacji bloków.
+- `sync-chunk-writes=true|false` — synchroniczny zapis chunków (stabilność vs I/O).
+- `region-file-compression=deflate|lz4|none` — **kompresja plików regionów** (1.20.5+: **lz4** może zmniejszyć obciążenie CPU/dysku).
+- `pause-when-empty-seconds=<int>` — pauza serwera po X sek. bez graczy (`-1` = nigdy).
+- `enable-jmx-monitoring=true|false` — JMX dla monitoringu JVM.
+- `debug=true|false` — dodatkowe logi.
+- `bug-report-link=<URL>` — link w UI klienta do zgłaszania błędów serwera. 
+
+### 8) Komunikacja systemowa
+- `motd=<tekst>` — opis serwera (wspiera kolory § na własną odpowiedzialność).
+- `broadcast-console-to-ops=true|false`
+- `broadcast-rcon-to-ops=true|false`
+- `player-idle-timeout=<minuty>` — kick za AFK (`0` = wyłączone). 
+
+---
+
+## Przykładowe konfiguracje
+
+### A) Survival (wydajny, bezpieczny)
+```properties
+# — Survival 1.21.x — profil zbalansowany
+online-mode=true
+enforce-secure-profile=true
+enforce-whitelist=true
+white-list=true
+pvp=true
+difficulty=normal
+gamemode=survival
+view-distance=10
+simulation-distance=10
+entity-broadcast-range-percentage=100
+spawn-protection=4
+max-players=20
+rate-limit=10
+network-compression-threshold=256
+use-native-transport=true
+sync-chunk-writes=true
+region-file-compression=lz4
+enable-command-block=false
+enable-rcon=true
+rcon.port=25575
+rcon.password=ZMIEN_TO
+enable-query=false
+motd=HostGier.PL — Survival 1.21
+```
+
+### B) Lobby / hub z transferami
+```properties
+# — Hub 1.21.x — transfer packets
+online-mode=true
+enable-status=true
+hide-online-players=true
+accepts-transfers=true
+rate-limit=0
+view-distance=6
+simulation-distance=6
+region-file-compression=lz4
+motd=HostGier.PL — Lobby
+```
+
+> Uwaga: aby **wysyłać** graczy na inne instancje, potrzebujesz logiki/pluginu po stronie „źródła”. To ustawienie tylko pozwala **przyjmować transfery** na docelowym serwerze.
+
+### C) Nowy świat z pakami funkcji (1.21)
+
+```properties
+# — Tworzenie NOWEGO świata z funkcjami 1.21
+initial-enabled-packs=vanilla,update_1_21
+level-name=world_121
+level-type=minecraft\:normal
+```
+
+> Działa **wyłącznie przy tworzeniu świata**. Dla istniejących światów — migracja ręczna/backup.
+
+---
+
+## Dobre praktyki
+
+**1. Edytuj na zatrzymanym serwerze** (unikniesz nadpisania przez start). \
+**2.** Zostaw `online-mode=true`, włącz whitelistę i używaj `op-permission-level=3/4` tylko dla administracji. \
+**3.** Dla Linuksa ustaw `use-native-transport=true` i rozważ `region-file-compression=lz4` (mniej CPU, szybsze IO). \
+**4.** Ustaw `rate-limit` (>0) i rozsądne `view-distance`/`simulation-distance` dla stabilnego TPS. \
+**5.** Jeśli korzystasz z czatu bez podpisów (mods), **świadomie** ustaw `enforce-secure-profile=false` i zadbaj o moderację.
+
+---
+
+## Źródła i referencje
+
+- [**Oficjalne zmiany — 1.19.3** (wprowadzenie `initial-enabled-packs` / `initial-disabled-packs`).](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-19-3)
+- [**Oficjalne zmiany — 1.20.5** (transfer packets i `accepts-transfers`, `region-file-compression`).](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-20-5)
+- [**Oficjalne Snapshoty — 24w03a** (transfer packets; nazwa klucza `accepts-transfers`).](https://www.minecraft.net/en-us/article/minecraft-snapshot-24w03a)
+- **Opis domyślnego `server.properties` i kluczy** ([wiki](https://minecraft.fandom.com/wiki/Server.properties) + [narzędzie referencyjne](https://mctools.org/server-properties-creator)).
+- **Artykuły i wątki dot. `enforce-secure-profile`** (kontekst i skutki):
+  - [Aternos Community - enforce-secure-profile=false as defaut](https://board.aternos.org/thread/101718-enforce-secure-profile-false-as-defaut/)
+  - [SpigotMC Forum - What will happen if I set "enforce-secure-profile" to false?](https://www.spigotmc.org/threads/what-will-happen-if-i-set-enforce-secure-profile-to-false.631078/)
+
+> Jeśli używasz dystrybucji serwera opartych o **Paper/Spigot**, część pól może mieć dodatkowe zachowanie lub być dokumentowana w ich referencjach (np. Paper uwzględnia `accept-transfers` w [dokumentacji](https://docs.papermc.io/paper/reference/server-properties/)). Zawsze weryfikuj pod konkretny silnik.
+
+---
+
+<AiGeneratedBadge /> <br />

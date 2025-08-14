@@ -1,0 +1,63 @@
+---
+title: "Instalacja dynmap"
+summary: "Jak zainstalować i poprawnie skonfigurować plugin Dynmap na serwerze HostGier.PL (wymagany dodatkowy port dla serwera WWW dynmapy)."
+group: "Serwery Minecraft"
+tags: ["minecraft", "dynmap", "plugin", "mapa", "instalacja", "port"]
+order: 40
+---
+
+import AiGeneratedBadge from '../../components/AiGeneratedBadge.tsx'
+
+# Instalacja dynmap
+
+W tym poradniku dowiesz się, jak poprawnie skonfigurować plugin **Dynmap** — interaktywną mapę świata widoczną w przeglądarce. Plugin jest szczególnie przydatny na serwerach geopolitycznych/roleplay i w połączeniu z **Towny**.
+
+## Wymagania
+
+- Aktywna usługa serwera **Minecraft** (dowolny pakiet w ofercie HostGier.PL).
+- Wykupiona usługa **„dodatkowy port”** — odblokowuje port dla wbudowanego serwera WWW Dynmap.
+- (Opcjonalnie) Edytor tekstu (np. VS Code) i klient SFTP (np. WinSCP). Konfigurację można też wykonać przez WebFTP panelu.
+
+## Krok 1 — Zakup usługi „dodatkowy port”
+
+Bez dodatkowego portu dynmapa nie będzie dostępna z internetu (domyślnie serwer ma aktywny tylko port Minecrafta). Po zakupie otrzymasz **numer portu**, którego użyjesz w konfiguracji Dynmap.
+
+![Zakup dodatkowego portu](/docs/instalacja-dynmap/1.png)
+
+## Krok 2 — Ustaw port serwera WWW Dynmap
+
+1. Zainstaluj plugin **Dynmap** (wrzuć `.jar` do `plugins/` i uruchom serwer raz, aby wygenerował pliki).
+2. Otwórz plik konfiguracyjny (zwykle: `plugins/dynmap/configuration.txt`).
+3. Znajdź linię `webserver-port: xxxx` i podmień `xxxx` na port przydzielony po zakupie.
+
+```yaml
+# plugins/dynmap/configuration.txt (fragment)
+# Port serwera WWW dynmapy:
+webserver-port: 8123  # ← wstaw tu port przydzielony przez HostGier.PL
+```
+> Upewnij się, że żaden inny proces na hoście nie używa tego samego portu.
+
+## Krok 3 — Zrestartuj serwer i sprawdź mapę
+
+- Zrestartuj serwer, poczekaj aż Dynmap wygeneruje pliki i uruchomi serwer WWW.
+- Wejdź w przeglądarce na adres:
+    ```text
+    http://ADRES_SERWERA:PORT
+    ```
+  gdzie `PORT` to ten ustawiony w kroku 2 (np. `8123`).
+
+## Rozwiązywanie problemów
+
+- **Brak dostępu do strony dynmapy** — sprawdź, czy port jest poprawny i usługa „dodatkowy port” jest aktywna.
+- **Strona ładuje się, ale bez kafelków** — daj Dynmapie czas na wyrenderowanie świata (pierwszy render może chwilę potrwać).
+- **Zmiany konfiguracji bez efektu — zatrzymaj serwer**, zapisz plik, uruchom ponownie.
+
+---
+
+> Źródło: „Instalacja dynmap” — HostGier.PL Baza wiedzy (oryginalny artykuł).
+> 
+> Artykuł przeniesiony ze starej bazy wiedzy i przeredagowany przez naszego Agenta AI
+
+---
+
+<AiGeneratedBadge />
