@@ -14,7 +14,7 @@ function currentGroupKey(pathname: string) {
 export default function Sidebar() {
     const { pathname } = useLocation()
 
-    const [sort, setSort] = React.useState<SortMode>(() => (localStorage.getItem('kbSort') as SortMode) || 'group-title')
+    const [sort, setSort] = React.useState<SortMode>(() => (localStorage.getItem('kbSort') as SortMode) || 'order-asc')
     React.useEffect(() => { localStorage.setItem('kbSort', sort) }, [sort])
 
     const groupIcons = React.useMemo(() => {
