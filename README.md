@@ -13,7 +13,7 @@ If this project saved you time, consider supporting the project:
 [![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/nexondev)
 
 Or leave a ⭐ on GitHub to help others discover it:  
-[![GitHub Repo stars](https://img.shields.io/github/stars/OWNER/REPO?style=social)](https://github.com/OWNER/REPO)
+[![GitHub Repo stars](https://img.shields.io/github/stars/nexondev/hg-knowledge-base?style=social)](https://github.com/nexondev/hg-knowledge-base)
 
 ---
 
