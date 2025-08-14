@@ -4,12 +4,14 @@ import DocPage from './components/DocPage'
 import SearchBox from './components/Search'
 import ThemeToggle from './components/ThemeToggle'
 import FooterBar from './components/Footer'
+import {TitleSync} from "./seo/SEO.tsx";
 
 export default function App() {
     return (
         <div className="h-full flex overflow-hidden">
             <Sidebar />
             <main className="main">
+                <TitleSync />
                 <header className="header-glass">
                     <div className="header-inner mx-auto max-w-6xl px-4 flex items-center gap-4">
                         <div className="flex-1"><SearchBox /></div>
