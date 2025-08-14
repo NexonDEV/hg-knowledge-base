@@ -92,8 +92,8 @@ export function TitleSync() {
     useEffect(() => {
         const rec = byRoute[normalize(pathname)]
         document.title = rec?.meta?.title
-            ? `${rec.meta.title} • HostGier.PL Knowledge Base`
-            : 'HostGier.PL Knowledge Base'
+            ? `${rec.meta.title} • HostGier.PL - Baza Wiedzy`
+            : 'HostGier.PL - Baza Wiedzy'
     }, [pathname])
     return null
 }
