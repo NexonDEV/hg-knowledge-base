@@ -144,15 +144,6 @@ Add CSS for KaTeX + highlight.js in `src/index.css`:
 
 ---
 
-## 🎨 Theming & UX
-
-- Global design tokens in CSS variables (`--kb-*`) for backgrounds, panels, borders, accent, and typography.
-- Dark/light theme toggle (Sun/Moon) with a smooth animated knob.
-- Comfortable spacing across header, sidebar, inputs, and prose.
-- Sticky footer with copyright + attribution.
-
----
-
 ## 📦 Deployment
 
 - **Vercel / Netlify:** static build out-of-the-box.
