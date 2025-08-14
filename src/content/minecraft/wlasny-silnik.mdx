@@ -1,0 +1,73 @@
+---
+title: "Instalacja customowego silnika w serwerze Minecraft"
+summary: "Jak wgrać własny JAR silnika do serwera Minecraft w panelu HostGier.PL — krok po kroku, z obrazkami."
+group: "Serwery Minecraft"
+tags: ["minecraft", "silnik", "custom", "jar", "instalacja", "panel", "webftp"]
+order: 50
+---
+
+import AiGeneratedBadge from '../components/AiGeneratedBadge.tsx'
+
+# Instalacja customowego silnika w serwerze Minecraft
+
+> W tym poradniku zobaczysz, jak zainstalować **własny silnik (JAR)** — inny niż dostępny w Instalatorze Serwera. Pokażemy to na przykładzie wgrywania pliku przez **panel**. Alternatywnie możesz użyć **SFTP**.
+
+---
+
+## Co będzie Ci potrzebne?
+
+- Aktywny serwer **Minecraft** w HostGier.PL.
+- Plik silnika **JAR** (np. Paper/Spigot itp.).
+
+---
+
+> **Uwaga (Forge / skrypty `.sh`):**  
+> Jeśli chcesz wgrać **Forge 1.12.2+** lub inny silnik startujący ze **skryptu `.sh`**, skontaktuj się z nami — wymagana jest zmiana instrukcji startowych, których obecnie nie można edytować ręcznie w panelu.
+
+---
+
+## Krok po kroku
+
+1. **Wejdź do panelu serwera**, klikając **zieloną ikonkę oka** przy wybranej usłudze.
+   ![Przejście do panelu serwera — zielona ikona oka](/docs/wlasny-silnik/1.png)
+
+2. Przejdź do sekcji **Menedżer Plików**.
+   ![Panel serwera — wejście do Menedżera plików](/docs/wlasny-silnik/2.png)
+
+3. **Usuń stary `server.jar`:**
+    - Zaznacz plik **`server.jar`**.
+      ![Zaznaczenie pliku server.jar](/docs/wlasny-silnik/3.png)
+    - Otwórz **menu kontekstowe** (trzy kropki).
+      ![Menu kontekstowe dla server.jar](/docs/wlasny-silnik/4.png)
+    - Wybierz **Usuń**.
+      ![Wybór „Usuń” w menu](/docs/wlasny-silnik/5.png)
+    - **Potwierdź** usunięcie.
+      ![Potwierdzenie usunięcia](/docs/wlasny-silnik/6.png)
+    - Komunikat **„Plik usunięty”** potwierdzi operację.
+      ![Komunikat „Plik usunięty”](/docs/wlasny-silnik/7.png)
+
+4. **Wgraj nowy plik silnika** — kliknij **Wyślij plik** i wybierz swój JAR z komputera.  
+   ![Przycisk „Wyślij plik” w WebFTP](/docs/wlasny-silnik/8.png)
+
+5. **Uruchom serwer**:
+    - Wejdź do sekcji **Konsola**.
+      ![Przejście do Konsoli](/docs/wlasny-silnik/9.png)
+    - Kliknij **Uruchom** (ew. **Zrestartuj**) i poczekaj, aż serwer wystartuje na nowym silniku.
+      ![Akcje: Uruchom/Zrestartuj](/docs/wlasny-silnik/10.png)
+
+---
+
+## Podsumowanie
+
+- W panelu usuń **stary `server.jar`**, wgraj **nowy JAR** i **uruchom** serwer.
+- Dla silników wymagających **skryptów startowych `.sh`** (np. **Forge 1.12.2+**) — napisz do nas, zaktualizujemy instrukcje uruchamiania po stronie hostingu.
+
+---
+
+> Źródło: „Instalacja customowego silnika w serwerze Minecraft” — HostGier.PL Baza wiedzy (oryginalny artykuł).
+>
+> Artykuł przeniesiony ze starej bazy wiedzy i przeredagowany przez naszego Agenta AI
+
+---
+
+<AiGeneratedBadge />
