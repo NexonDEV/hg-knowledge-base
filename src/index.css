@@ -288,37 +288,3 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
   padding: 6px;
 }
 
-.sidebar-drawer {}
-
-@media (max-width: 1023.98px) {
-  .sidebar.sidebar-drawer {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 86vw;
-    max-width: 340px;
-    height: 100vh;
-    transform: translateX(-102%);
-    transition: transform .22s ease;
-    z-index: 60;
-    box-shadow: 10px 0 30px color-mix(in oklab, black 35%, transparent);
-  }
-  .sidebar.sidebar-drawer[data-open="true"] {
-    transform: translateX(0);
-  }
-
-  .sidebar.sidebar-drawer .nav {
-    overflow: visible;
-  }
-}
-
-.mobile-backdrop {
-  position: fixed;
-  inset: 0;
-  background: color-mix(in oklab, black 52%, transparent);
-  backdrop-filter: blur(2px);
-  z-index: 55;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sidebar.sidebar-drawer { transition: none !important; }
-}

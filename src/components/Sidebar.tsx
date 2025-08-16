@@ -3,8 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { allMeta, byRoute, groupsConfig } from '../lib/content'
 import Logo from './Logo'
 import * as Icons from 'lucide-react'
-import { useCallback } from 'react'
-import clsx from 'clsx'
 
 type SortMode = 'group-title' | 'title-asc' | 'title-desc' | 'order-asc' | 'order-desc'
 
@@ -13,19 +11,13 @@ function currentGroupKey(pathname: string) {
     return rec?.meta.group || 'Ogólne'
 }
 
-type SidebarProps = {
-    isOpen?: boolean
-    onClose?: () => void
-}
-
-export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
-
-    const handleClick = useCallback((e: React.MouseEvent) => {
-        const el = (e.target as HTMLElement).closest('.nav-link')
-        if (!el) return
+export default function Sidebar({ isOpen = false, onClose }: { isOpen?: boolean; onClose?: () => void }) {
+    const handleClick: React.MouseEventHandler = (e) => {
+        const link = (e.target as HTMLElement).closest('.nav-link')
+        if (!link) return
         if (window.matchMedia('(min-width: 1024px)').matches) return
         onClose?.()
-    }, [onClose])
+    }
 
     const { pathname } = useLocation()
 
@@ -92,7 +84,7 @@ export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 
     return (
         <aside
-            className={clsx('sidebar', 'sidebar-drawer')}
+            className="sidebar"
             data-open={isOpen ? 'true' : 'false'}
             aria-hidden={isOpen ? 'false' : 'true'}
             onClick={handleClick}
