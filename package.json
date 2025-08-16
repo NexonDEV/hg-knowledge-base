@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.0",
+    "clsx": "^2.1.1",
     "front-matter": "^4.0.2",
     "katex": "^0.16.22",
     "lucide-react": "^0.539.0",

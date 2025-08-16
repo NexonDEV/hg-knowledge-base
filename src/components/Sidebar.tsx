@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { allMeta, byRoute, groupsConfig } from '../lib/content'
 import Logo from './Logo'
 import * as Icons from 'lucide-react'
+import { useCallback } from 'react'
+import clsx from 'clsx'
 
 type SortMode = 'group-title' | 'title-asc' | 'title-desc' | 'order-asc' | 'order-desc'
 
@@ -11,7 +13,20 @@ function currentGroupKey(pathname: string) {
     return rec?.meta.group || 'Ogólne'
 }
 
-export default function Sidebar() {
+type SidebarProps = {
+    isOpen?: boolean
+    onClose?: () => void
+}
+
+export default function Sidebar({ isOpen = false, onClose }: SidebarProps) {
+
+    const handleClick = useCallback((e: React.MouseEvent) => {
+        const el = (e.target as HTMLElement).closest('.nav-link')
+        if (!el) return
+        if (window.matchMedia('(min-width: 1024px)').matches) return
+        onClose?.()
+    }, [onClose])
+
     const { pathname } = useLocation()
 
     const [sort, setSort] = React.useState<SortMode>(() => (localStorage.getItem('kbSort') as SortMode) || 'order-asc')
@@ -76,7 +91,12 @@ export default function Sidebar() {
     }
 
     return (
-        <aside className="sidebar">
+        <aside
+            className={clsx('sidebar', 'sidebar-drawer')}
+            data-open={isOpen ? 'true' : 'false'}
+            aria-hidden={isOpen ? 'false' : 'true'}
+            onClick={handleClick}
+        >
             <div className="logo">
                 <Logo />
             </div>
