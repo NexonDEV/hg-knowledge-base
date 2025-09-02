@@ -11,11 +11,11 @@ function currentGroupKey(pathname: string) {
     return rec?.meta.group || 'Ogólne'
 }
 
-export default function Sidebar({ isOpen = false, onClose }: { isOpen?: boolean; onClose?: () => void }) {
+export default function Sidebar({ isOpen = false, onClose, isMobile = false }: { isOpen?: boolean; onClose?: () => void; isMobile?: boolean }) {
     const handleClick: React.MouseEventHandler = (e) => {
         const link = (e.target as HTMLElement).closest('.nav-link')
         if (!link) return
-        if (window.matchMedia('(min-width: 1024px)').matches) return
+        if (!isMobile) return
         onClose?.()
     }
 
@@ -84,9 +84,10 @@ export default function Sidebar({ isOpen = false, onClose }: { isOpen?: boolean;
 
     return (
         <aside
-            className="sidebar"
+            className={`sidebar ${isMobile ? 'sidebar-mobile' : ''}`}
             data-open={isOpen ? 'true' : 'false'}
-            aria-hidden={isOpen ? 'false' : 'true'}
+            data-mobile={isMobile ? 'true' : 'false'}
+            aria-hidden={isMobile && !isOpen ? 'true' : 'false'}
             onClick={handleClick}
         >
             <div className="logo">

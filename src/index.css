@@ -34,6 +34,13 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
 }
 .header-inner { padding-block: 20px; }
 
+@media (max-width: 1023px) {
+  .header-inner { 
+    padding-block: 12px; 
+    padding-inline: 16px;
+  }
+}
+
 .kb-popover {
   background: var(--kb-panel);
   border: 1px solid var(--kb-border);
@@ -44,7 +51,16 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
 
 @keyframes kb-pop { 0%{opacity:0;transform:translateY(8px) scale(.985)}100%{opacity:1;transform:translateY(0) scale(1)} }
 .anim-pop  { animation: kb-pop 170ms ease-out both; }
-@media (prefers-reduced-motion: reduce) { * { animation-duration:1ms!important; animation-iteration-count:1!important; transition:none!important } }
+@media (prefers-reduced-motion: reduce) { 
+  * { 
+    animation-duration:1ms!important; 
+    animation-iteration-count:1!important; 
+    transition:none!important; 
+  }
+  .sidebar {
+    transition: none !important;
+  }
+}
 
 .sidebar {
   width: 320px;
@@ -53,8 +69,35 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
   display: flex;
   flex-direction: column;
   font-size: 15px;
-  position: sticky;
   overflow-y: auto;
+  z-index: 46;
+  align-self: stretch;
+}
+
+/* Mobile sidebar styles */
+@media (max-width: 1023px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    height: 100vh;
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 0 0 1px var(--kb-border);
+  }
+  
+  .sidebar[data-open="true"] {
+    transform: translateX(0);
+    box-shadow: 
+      0 0 0 1px var(--kb-border),
+      0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  
+  .sidebar[data-open="false"] {
+    transform: translateX(-100%);
+  }
 }
 .sidebar .logo {
   padding: 14px 14px 12px;
@@ -229,10 +272,23 @@ body { background: var(--kb-bg); color: var(--kb-ink); padding-bottom: var(--kb-
   overflow: hidden;
 }
 
+@media (max-width: 1023px) {
+  .main {
+    width: 100%;
+    min-width: 100vw;
+  }
+}
+
 .main-scroll {
   flex: 1;
   overflow-y: auto;
   padding-bottom: var(--kb-footer-h);
+}
+
+@media (max-width: 1023px) {
+  .main-scroll > div {
+    padding-inline: 20px;
+  }
 }
 
 .kb-card {
